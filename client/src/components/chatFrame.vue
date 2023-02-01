@@ -6,7 +6,7 @@
           <li v-for="(item, i) in messageList" :class="item.uuid === uuid ? 'right' : 'left'" :key="`item${i}`"
             :id="`liText${i}`">
             <span class="chatSpan">
-              <img class="failSend" src="assets/icon/gantanhao.svg" alt=""
+              <img class="failSend" src="../assets/icon/gantanhao.svg" alt=""
                 v-show="item.uuid === uuid && item.failSend" />
               <span v-html="item.text"></span>
             </span>
@@ -161,15 +161,18 @@ const show = (value: any) => {
       }</span>`;
     // }
   } else if (value.nodeType === 1) {
+    const str: any = spanSty.join()
     if (value.failSend) {
       const failSendStr: any = spanSty.join()
-      value.text = `<img
-                class="failSend"
-                src="../assets/icon/gantanhao.svg"
-                alt=""
-                style="${failSendStr.replaceAll(",", "")}"
-              /><img src=${value.url} width="${value.style.width > 180 ? 180 : value.style.width
-        }px;"></img>`;
+      // value.text = `<img
+      //           class="failSend"
+      //           src="../assets/icon/gantanhao.svg"
+      //           alt=""
+      //           style="${failSendStr.replaceAll(",", "")}"
+      //         /><img src=${value.url} width="${value.style.width > 180 ? 180 : value.style.width
+      //   }px;"></img>`;
+      value.text = `<span style="${str.replaceAll(",", "")}"><img src=${value.url} width="${value.style.width > 180 ? 180 : value.style.width
+        }px;"/></span>`;
     } else {
       value.text = `<img src=${value.url} width="${value.style.width > 180 ? 180 : value.style.width
         }px;"></img>`;

@@ -82,12 +82,12 @@ const againFocus = async() => {
   const textNode = document.createTextNode(`[${store.getCurrentEmoji.value}]`)
   cursorInsert(textNode)
   // 将emoji变为图片显示在输入框中
-  // let oImage = await this.addImg();
-  // this.cursorInsert(oImage);
+  // let oImage = await addImg();
+  // cursorInsert(oImage);
   store.setIsDisplay(false);
 }
 // 点击emoji添加img
-// addImg() {
+// const addImg = () => {
 //   const oImage = new Image(24, 24);
 //   oImage.style.display = "inline-block";
 //   let src = `${this.getCurrentEmoji.id}.png`;
@@ -95,7 +95,7 @@ const againFocus = async() => {
 //   oImage.setAttribute("data-title", `[${this.getCurrentEmoji.value}]`);
 //   oImage.dataTitle = `[${this.getCurrentEmoji.value}]`;
 //   return oImage;
-// },
+// }
 
 const keyDown = (event:any) => {
   // const childNodes = event.target.childNodes
@@ -135,16 +135,18 @@ const pasteImageFile = async(clipboardData:any) => {
   if (!img) return;
   let reader = new FileReader();
   reader.readAsDataURL(img); // 解析成base64格式
-  reader.onload = () => {
+  reader.onload = async () => {
     dataUrl.value = reader.result; // 解析后的数据，如下图
-    const oImage = getImageObject(dataUrl.value, null, null);
+    const oImage = await getImageObject(dataUrl.value, 150);
+    console.log(oImage)
     cursorInsert(oImage);
   };
 }
 
-const getImageObject = (dataUrl:any, showWidth:any, showHeight:any) => {
-  const oImage = new Image(showWidth, showHeight);
+const getImageObject = (dataUrl:any, showWidth:any) => {
+  const oImage = new Image(showWidth);
   oImage.src = dataUrl;
+  console.log(oImage, 'oImage')
   return oImage;
 }
 
